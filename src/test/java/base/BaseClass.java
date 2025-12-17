@@ -38,6 +38,7 @@ public class BaseClass {
 		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		driver.get(sURL);
+		driver.manage().window().maximize();
 	}
 	
 	@AfterClass

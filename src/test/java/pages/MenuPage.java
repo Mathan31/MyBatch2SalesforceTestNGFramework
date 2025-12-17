@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.interactions.Actions;
 
 import base.BaseClass;
 
@@ -39,5 +40,17 @@ public class MenuPage extends BaseClass{
 	public LoginPage clickLogout() {
 		driver.findElement(logoutLink).click();
 		return new LoginPage();
+	}
+	
+	public SalesPage clickOnSales() {
+		Actions actions = new Actions(driver);
+		actions.moveToElement(driver.findElement(salesLink)).perform();
+		driver.findElement(salesLink).click();
+		return new SalesPage(); 
+	}
+	
+	public MenuPage clickOnViewAll() {
+		driver.findElement(viewAllLink).click();
+		return this;
 	}
 }
