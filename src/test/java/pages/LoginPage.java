@@ -36,6 +36,12 @@ public class LoginPage extends MenuPage{
 
 	public HomePage clickOnLogin() {
 		driver.findElement(loginBtn).click();
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return new HomePage();
 	}
 
