@@ -17,7 +17,7 @@ public class TC002_CreateLead extends BaseClass{
 		
 	@Test(priority = 1,dataProvider = "TestCaseData")
 	public void createSalesLeadWithmandatoryFields(String userName,String password) {
-		boolean result = new LoginPage()
+		boolean result = new LoginPage(driver)
 		.enterUserName(userName)
 		.enterPassword(password)
 		.clickOnLogin()
@@ -28,7 +28,7 @@ public class TC002_CreateLead extends BaseClass{
 		.clickOnLeadsLink()
 		.clickOnNewButton()
 		.enterLastName(FakerDataFactory.getLastName())
-		.clickAndSelectLeadStatus()
+		//.clickAndSelectLeadStatus()
 		.enterCompanyName(FakerDataFactory.getCompanyName())
 		.clickOnSaveButton()
 		.clickUserImg()

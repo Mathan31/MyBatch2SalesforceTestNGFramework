@@ -14,17 +14,16 @@ public class TC001_Login extends BaseClass{
 		excelFileName = "TC01";
 	}
 	
-	
 	@Test(priority = 1)
 	public void loginFieldValidation() {
-		boolean result = new LoginPage()
+		boolean result = new LoginPage(driver)
 		.verifyLoginElements();
 		Assert.assertEquals(result, true);
 	}
 	
 	@Test(priority = 2,dataProvider = "TestCaseData")
 	public void loginWithValidCredential(String userName,String password) {
-		boolean result = new LoginPage()
+		boolean result = new LoginPage(driver)
 		.enterUserName(userName)
 		.enterPassword(password)
 		.clickOnLogin()
@@ -37,7 +36,7 @@ public class TC001_Login extends BaseClass{
 	
 	@Test(priority = 3)
 	public void loginWithInValidCredential() {
-		boolean result = new LoginPage()
+		boolean result = new LoginPage(driver)
 		.enterUserName("mathan@credosystemz.sanbox")
 		.enterPassword("Mylearning$8")
 		.clickOnLoginWithInvalidCredential()

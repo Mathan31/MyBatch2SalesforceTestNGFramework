@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 import base.BaseClass;
 
@@ -12,6 +13,12 @@ public class LoginPage extends MenuPage{
 	private By remembermeChBox = By.xpath("//label[text()='Remember me']");
 	private By forgotLink = By.id("forgot_password_link");
 	private By loginFailureMsg = By.cssSelector("#error");
+	private WebDriver driver;
+	
+	public LoginPage(WebDriver driver) {
+		super(driver);
+		this.driver = driver;
+	}
 	
 	public boolean verifyLoginElements() {
 
@@ -33,7 +40,7 @@ public class LoginPage extends MenuPage{
 		driver.findElement(passwordTxt).sendKeys(password);
 		return this;
 	}
-
+   
 	public HomePage clickOnLogin() {
 		driver.findElement(loginBtn).click();
 		try {
@@ -42,7 +49,7 @@ public class LoginPage extends MenuPage{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return new HomePage();
+		return new HomePage(driver);
 	}
 
 	public LoginPage clickOnLoginWithInvalidCredential() {
