@@ -1,13 +1,19 @@
 package base;
 
+import java.io.File;
 import java.time.Duration;
 
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 
 import utils.PropertyFileUtil;
@@ -20,6 +26,18 @@ public class BaseClass extends HTMLReport{
 	public  String iBrowserType = PropertyFileUtil.readDataFromPropertyFile(propFileName, "Browser"); // 1-chrome,2-edge,3-firefox,4-safari
 	String sURL = PropertyFileUtil.readDataFromPropertyFile(propFileName,"URL");
 	public String excelFileName = "";
+	public String testName,testDescription,testModule;
+	
+	@BeforeSuite
+	public void reportInit() {
+		startReport();
+	}
+	
+	@AfterSuite
+	public void bindReport() {
+		endReport();
+	}
+	
 	
 	@BeforeClass 
 	public  void invokeBrowser() {
@@ -45,6 +63,8 @@ public class BaseClass extends HTMLReport{
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		driver.get(sURL);
 		driver.manage().window().maximize();
+		startTestCase(testName, testDescription);
+		startTestCase(testModule);
 	}
 	
 	@AfterClass(alwaysRun = true)
@@ -61,8 +81,17 @@ public class BaseClass extends HTMLReport{
 
 	@Override
 	public String takeScreenshot() {
-		// TODO Auto-generated method stub
-		return null;
+		String sPath = System.getProperty("user.dir")+"/snap/img"+System.currentTimeMillis()+".png";
+		TakesScreenshot oShot = (TakesScreenshot)driver;
+		File osrc = oShot.getScreenshotAs(OutputType.FILE);
+		File dis = new File(sPath);
+		try {
+			FileUtils.copyFile(osrc, dis); 
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return sPath;
 	}
 
 }

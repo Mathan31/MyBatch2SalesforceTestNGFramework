@@ -13,11 +13,16 @@ public class TC002_CreateLead extends BaseClass{
 	@BeforeTest
 	public void dataSetup() {
 		excelFileName = "TC02";
+		authors = "Anu";
+		category = "Sanity";
+		testName = "Salesforce Create Lead";
+		testDescription = "Validate all the mandatory fields and create a lead by providing only mandatory fields";
+		testModule = "Create Lead";
 	}
 		
 	@Test(priority = 1,dataProvider = "TestCaseData")
 	public void createSalesLeadWithmandatoryFields(String userName,String password) {
-		boolean result = new LoginPage(driver)
+		boolean result = new LoginPage(driver,node)
 		.enterUserName(userName)
 		.enterPassword(password)
 		.clickOnLogin()
