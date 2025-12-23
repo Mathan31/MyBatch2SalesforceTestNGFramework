@@ -16,6 +16,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 
+import factoryDesign.BrowserFactoryManager;
 import utils.PropertyFileUtil;
 import wrapper.HTMLReport;
 
@@ -38,27 +39,9 @@ public class BaseClass extends HTMLReport{
 		endReport();
 	}
 	
-	
 	@BeforeClass 
 	public  void invokeBrowser() {
-		switch (iBrowserType.toLowerCase()) {
-		case "chrome":
-			System.out.println("User option is : " + iBrowserType + ",so invoking chrome browser");
-			driver = new ChromeDriver();
-			break;
-		case "edge":
-			System.out.println("User option is : " + iBrowserType + ",so invoking edge browser");
-			driver = new EdgeDriver();
-			break;
-		case "firefox":
-			System.out.println("User option is : " + iBrowserType + ",so invoking firefox browser");
-			driver = new FirefoxDriver();
-			break;
-		default:
-			System.out.println("User option is wrong : " + iBrowserType + ",so invoking the default chrome browser");
-			driver = new ChromeDriver();
-			break;
-		}
+		driver = BrowserFactoryManager.getDriver(iBrowserType).getDriverManager();
 		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		driver.get(sURL);
